@@ -1,4 +1,5 @@
 var createError = require('http-errors');
+var hbs = require('hbs');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -12,6 +13,7 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -39,3 +41,8 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+var port = 3002;
+app.listen(port, () => {
+  console.log('Listening...')
+})
