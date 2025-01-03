@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var adminController = require('./adminController');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -10,16 +11,11 @@ router.get('/admin', function(req, res) {
   res.render('index');
 });
 
-router.get('/admin/manage-account', function(req, res) {
-  res.render('index');
-});
+/* Get management pages*/
+router.get('/admin/manage-accounts', adminController.manageAccount);
 
-router.get('/admin/manage-product', function(req, res) {
-  res.render('index');
-});
+router.get('/admin/manage-products', adminController.manageProduct);
 
-router.get('/admin/manage-order', function(req, res) {
-  res.render('index');
-});
+router.get('/admin/manage-orders', adminController.manageOrder);
 
 module.exports = router;

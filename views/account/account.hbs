@@ -1,0 +1,144 @@
+<div class="container">
+  <div class="page-inner">
+    <div class="page-header">
+      <h3 class="fw-bold mb-3">Account Management</h3>
+      <ul class="breadcrumbs mb-3">
+        <li class="nav-home">
+          <a href="/admin">
+            <i class="fas fa-home"></i>
+          </a>
+        </li>
+        <li class="separator">
+          <i class="fas fa-chevron-right"></i>
+        </li>
+        <li class="nav-item">
+          <a href="#">Account Management</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex align-items-center">
+              <h4 class="card-title">Account List</h4>
+              <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal" data-bs-target="#addAccountModal">
+                <i class="fa fa-plus"></i>
+                Add Account
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="account-table" class="display table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Permission</th>
+                    <th>Status</th>
+                    <th style="width: 10%">Create date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each users}}
+                  <tr>
+                    <td>{{this.username}}</td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.role}}</td>
+                    <td>{{this.permission}}</td>
+                    <td>
+                      <span class="badge {{#if (eq this.status 'active')}}bg-success{{else}}bg-danger{{/if}}">
+                        {{this.status}}
+                      </span>
+                    </td>
+                    <td>
+                      <div class="form-button-action">
+                        <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" 
+                          data-original-title="Edit Account" data-id="{{this._id}}" onclick="editAccount(this)">
+                          <i class="fa fa-edit"></i>
+                        </button>
+                        <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger"
+                          data-original-title="Delete Account" data-id="{{this._id}}" onclick="deleteAccount(this)">
+                          <i class="fa fa-times"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Account Modal -->
+<div class="modal fade" id="addAccountModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header no-bd">
+        <h5 class="modal-title">
+          <span class="fw-mediumbold">New</span>
+          <span class="fw-light"> Account</span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="addAccountForm">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control" name="username" required>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" name="email" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Role</label>
+                <select class="form-control" name="role">
+                  <option value="admin">Admin</option>
+                  <option value="user">User</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Permission</label>
+                <select class="form-control" name="permission">
+                  <option value="accounts">Accounts</option>
+                  <option value="orders">Orders</option>
+                  <option value="products">Products</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Status</label>
+                <select class="form-control" name="status">
+                  <option value="active">Active</option>
+                  <option value="banned">Banned</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer no-bd">
+          <button type="submit" class="btn btn-primary">Add</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
